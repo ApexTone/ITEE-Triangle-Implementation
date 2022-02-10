@@ -1,0 +1,32 @@
+body {
+  background-color: #ded3f1;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  align-self: center;
+  text-align: center;
+  width: 500px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.data-field {
+  background-color: #cdda07;
+  display: block;
+}
+
+.submit-button {
+  background-color: #cdda07;
+}
+
+.output-field {
+  background-color: #cdda07;
+  display: block;
+}
