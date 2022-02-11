@@ -52,12 +52,40 @@ const validateInput = (side1, side2, side3) => {
 // Calculate Module
 // TODO: Calculate triangle type + show error (replace all console.log())
 const calculateInput = (side1, side2, side3) => {
-  const valueSide1 = Number.parseFloat(side1),
-    valueSide2 = Number.parseFloat(side2),
-    valueSide3 = Number.parseFloat(side3);
-  if (validateInput(valueSide1, valueSide2, valueSide3)) {
-    console.log("calculate triangle type");
+  const sideValues = [
+    Number.parseFloat(side1),
+    Number.parseFloat(side2),
+    Number.parseFloat(side3),
+  ];
+
+  let output = "";
+
+  if (validateInput(sideValues[0], sideValues[1], sideValues[2])) {
+    const longestSide = Math.max(sideValues);
+    const longestSideIndex = sideValues.indexOf(longestSide);
+    let isRight = true; //TODO: Check for right triangle with Pythagorean Theorem
+    let isEquilateral = true; //TODO: Check condition
+    let isIsosceles = true; //TODO: Check condition
+    let isObtuse = true; //TODO: Check condition (The design has this type)
+    let isRight = true; //TODO: Check condition
+
+    if (isEquilateral) {
+      output += "Equilateral Triangle";
+    } else if (isIsosceles) {
+      output += "Isosceles Triangle";
+    } else {
+      output += "Scalene Triangle";
+    }
+    if (isRight) {
+      output += "Right Triangle";
+    } else if (isObtuse) {
+      output += "Obtuse Triangle";
+    } else {
+      output += "Acute Triangle";
+    }
   } else {
-    console.log("show error");
+    output += "some error";
   }
+
+  return output;
 };
