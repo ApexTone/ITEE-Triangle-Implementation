@@ -104,7 +104,7 @@ const calculateInput = (side1, side2, side3) => {
   } 
   else {
     if (errorcase == 1) {
-      output += "Error, please  check your input";
+      output += "Error, please check your input";
     }
     else if(errorcase == 2){
       output += "Error, please enter new value(invalid input)";
