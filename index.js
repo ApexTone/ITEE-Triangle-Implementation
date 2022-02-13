@@ -50,7 +50,7 @@ const validateInput = (side1, side2, side3) => {
 };
 
 // Calculate Module
-// TODO: Calculate triangle type + show error (replace all console.log())
+// check
 const calculateInput = (side1, side2, side3) => {
   const sideValues = [
     Number.parseFloat(side1),
@@ -65,21 +65,21 @@ const calculateInput = (side1, side2, side3) => {
     const longestSideIndex = sideValues.indexOf(longestSide);
     sideValues.sort();
     console.log(sideValues);
-    let isEquilateral = sideValues[0] == sideValues[2] ? true : false; //TODO: Check condition
+    let isEquilateral = sideValues[0] == sideValues[2] ? true : false; //check
     let isIsosceles =
       sideValues[0] == sideValues[1] && sideValues[1] != sideValues[2]
         ? true
-        : false; //TODO: Check condition
+        : false; //check
     let isRight =
       sideValues[0] * sideValues[0] + sideValues[1] * sideValues[1] ==
       sideValues[2] * sideValues[2]
         ? true
-        : false; //TODO: Check for right triangle with Pythagorean Theorem
+        : false; //check
     let isObique =
       sideValues[0] * sideValues[0] + sideValues[1] * sideValues[1] <
       sideValues[2] * sideValues[2]
         ? true
-        : false; //TODO: Check condition (The design has this type)
+        : false; //check
 
     if (isEquilateral) {
       output += "Equilateral Triangle";
