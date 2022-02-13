@@ -63,11 +63,23 @@ const calculateInput = (side1, side2, side3) => {
   if (validateInput(sideValues[0], sideValues[1], sideValues[2])) {
     const longestSide = Math.max(sideValues);
     const longestSideIndex = sideValues.indexOf(longestSide);
-    let isRight = true; //TODO: Check for right triangle with Pythagorean Theorem
-    let isEquilateral = true; //TODO: Check condition
-    let isIsosceles = true; //TODO: Check condition
-    let isObtuse = true; //TODO: Check condition (The design has this type)
-    let isRight = true; //TODO: Check condition
+    sideValues.sort();
+    console.log(sideValues);
+    let isEquilateral = sideValues[0] == sideValues[2] ? true : false; //TODO: Check condition
+    let isIsosceles =
+      sideValues[0] == sideValues[1] && sideValues[1] != sideValues[2]
+        ? true
+        : false; //TODO: Check condition
+    let isRight =
+      sideValues[0] * sideValues[0] + sideValues[1] * sideValues[1] ==
+      sideValues[2] * sideValues[2]
+        ? true
+        : false; //TODO: Check for right triangle with Pythagorean Theorem
+    let isObique =
+      sideValues[0] * sideValues[0] + sideValues[1] * sideValues[1] <
+      sideValues[2] * sideValues[2]
+        ? true
+        : false; //TODO: Check condition (The design has this type)
 
     if (isEquilateral) {
       output += "Equilateral Triangle";
@@ -77,15 +89,15 @@ const calculateInput = (side1, side2, side3) => {
       output += "Scalene Triangle";
     }
     if (isRight) {
-      output += "Right Triangle";
-    } else if (isObtuse) {
-      output += "Obtuse Triangle";
+      output += ", Right Triangle";
+    } else if (isObique) {
+      output += ", Obique Triangle";
     } else {
-      output += "Acute Triangle";
+      output += ", Acute Triangle";
     }
   } else {
-    output += "some error";
+    output += "Please check your input.";
   }
-
-  return output;
+  document.getElementById("output").value = output;
+  //return output;
 };
