@@ -16,8 +16,23 @@ const validateInput = (side1, side2, side3) => {
   const UPPER_LIMIT = 1000000;
   console.log(side1, side2, side3);
   // NOTE: since input are of type number, string inputs will be result in <empty string> on variables
-  if (side1 === "" || side2 === "" || side3 === "") {
+  if (isNaN(side1) || isNaN(side2) || isNaN(side3)) {
     //console.log("no data");
+    if (isNaN(side1)) {
+      inputSide1.style = "background-color : red";
+    } else {
+      inputSide1.style = "background-color : #cdda07";
+    }
+    if (isNaN(side2)) {
+      inputSide2.style = "background-color : red";
+    } else {
+      inputSide2.style = "background-color : #cdda07";
+    }
+    if (isNaN(side3)) {
+      inputSide3.style = "background-color : red";
+    } else {
+      inputSide3.style = "background-color : #cdda07";
+    }
     errorcase = 1;
     return false;
   }
@@ -27,13 +42,22 @@ const validateInput = (side1, side2, side3) => {
     !Number.isInteger(side3)
   ) {
     //console.log("not int");
-    
-    if(!Number.isInteger(side1)){inputSide1.style = "background-color : red"}
-    else{inputSide1.style = "background-color : #cdda07"}
-    if(!Number.isInteger(side2)){inputSide2.style = "background-color : red"}
-    else{inputSide2.style = "background-color : #cdda07"}
-    if(!Number.isInteger(side3)){inputSide3.style = "background-color : red"}
-    else{inputSide3.style = "background-color : #cdda07"}
+
+    if (!Number.isInteger(side1)) {
+      inputSide1.style = "background-color : red";
+    } else {
+      inputSide1.style = "background-color : #cdda07";
+    }
+    if (!Number.isInteger(side2)) {
+      inputSide2.style = "background-color : red";
+    } else {
+      inputSide2.style = "background-color : #cdda07";
+    }
+    if (!Number.isInteger(side3)) {
+      inputSide3.style = "background-color : red";
+    } else {
+      inputSide3.style = "background-color : #cdda07";
+    }
     errorcase = 1;
     return false;
   }
@@ -41,24 +65,42 @@ const validateInput = (side1, side2, side3) => {
   //due to rounding issue, value slightly lower than 1 might pass this condition
   if (side1 < LOWER_LIMIT || side2 < LOWER_LIMIT || side3 < LOWER_LIMIT) {
     //console.log("too low");
-    if(side1 < LOWER_LIMIT){inputSide1.style = "background-color : red"}
-    else{inputSide1.style = "background-color : #cdda07"}
-    if(side2 < LOWER_LIMIT){inputSide2.style = "background-color : red"}
-    else{inputSide2.style = "background-color : #cdda07"}
-    if(side3 < LOWER_LIMIT){inputSide3.style = "background-color : red"}
-    else{inputSide3.style = "background-color : #cdda07"}
+    if (side1 < LOWER_LIMIT) {
+      inputSide1.style = "background-color : red";
+    } else {
+      inputSide1.style = "background-color : #cdda07";
+    }
+    if (side2 < LOWER_LIMIT) {
+      inputSide2.style = "background-color : red";
+    } else {
+      inputSide2.style = "background-color : #cdda07";
+    }
+    if (side3 < LOWER_LIMIT) {
+      inputSide3.style = "background-color : red";
+    } else {
+      inputSide3.style = "background-color : #cdda07";
+    }
     errorcase = 2;
     return false;
   }
   //due to rounding issue, value slightly more than 1000000 might pass this condition
   if (side1 > UPPER_LIMIT || side2 > UPPER_LIMIT || side3 > UPPER_LIMIT) {
     //console.log("too high");
-    if(side1 > UPPER_LIMIT){inputSide1.style = "background-color : red"}
-    else{inputSide1.style = "background-color : #cdda07"}
-    if(side2 > UPPER_LIMIT){inputSide2.style = "background-color : red"}
-    else{inputSide2.style = "background-color : #cdda07"}
-    if(side3 > UPPER_LIMIT){inputSide3.style = "background-color : red"}
-    else{inputSide3.style = "background-color : #cdda07"}
+    if (side1 > UPPER_LIMIT) {
+      inputSide1.style = "background-color : red";
+    } else {
+      inputSide1.style = "background-color : #cdda07";
+    }
+    if (side2 > UPPER_LIMIT) {
+      inputSide2.style = "background-color : red";
+    } else {
+      inputSide2.style = "background-color : #cdda07";
+    }
+    if (side3 > UPPER_LIMIT) {
+      inputSide3.style = "background-color : red";
+    } else {
+      inputSide3.style = "background-color : #cdda07";
+    }
     errorcase = 2;
     return false;
   }
@@ -86,13 +128,11 @@ const calculateInput = (side1, side2, side3) => {
   let output = "";
 
   if (validateInput(sideValues[0], sideValues[1], sideValues[2])) {
-    inputSide1.style = "background-color : #cdda07"
-    inputSide2.style = "background-color : #cdda07"
-    inputSide3.style = "background-color : #cdda07"
+    inputSide1.style = "background-color : #cdda07";
+    inputSide2.style = "background-color : #cdda07";
+    inputSide3.style = "background-color : #cdda07";
     const longestSide = Math.max(sideValues);
-    const longestSideIndex = sideValues.indexOf(longestSide);
     sideValues.sort();
-    console.log(sideValues);
     let isEquilateral = sideValues[0] == sideValues[2] ? true : false; //check
     let isIsosceles =
       sideValues[0] == sideValues[1] && sideValues[1] != sideValues[2]
@@ -123,19 +163,15 @@ const calculateInput = (side1, side2, side3) => {
     } else {
       output += ", Acute Triangle";
     }
-  } 
-  else {
+  } else {
     if (errorcase == 1) {
-      output += "Error, you have to put a value every side.";
-    }
-    else if(errorcase == 2){
+      output += "Error, you have to put a value for every side.";
+    } else if (errorcase == 2) {
       output += "Error, value must be in range 1-1,000,000.";
+    } else if (errorcase == 3) {
+      output += "Error, can't create triangle from the input.";
     }
-    else if(errorcase == 3){
-      output +=  "Error, can't create triangle.";
-    }
-    
   }
-  outputField.value= output;
+  outputField.value = output;
   //return output;
 };
