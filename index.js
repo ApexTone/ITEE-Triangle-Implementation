@@ -3,6 +3,7 @@ const inputSide2 = document.getElementById("side2");
 const inputSide3 = document.getElementById("side3");
 const submitButton = document.getElementById("submit-button");
 const outputField = document.getElementById("output");
+let errorcase = 0;
 
 submitButton.addEventListener("click", () =>
   calculateInput(inputSide1.value, inputSide2.value, inputSide3.value)
@@ -16,7 +17,8 @@ const validateInput = (side1, side2, side3) => {
   console.log(side1, side2, side3);
   // NOTE: since input are of type number, string inputs will be result in <empty string> on variables
   if (side1 === "" || side2 === "" || side3 === "") {
-    console.log("no data");
+    //console.log("no data");
+    errorcase = 1;
     return false;
   }
   if (
@@ -24,18 +26,21 @@ const validateInput = (side1, side2, side3) => {
     !Number.isInteger(side2) ||
     !Number.isInteger(side3)
   ) {
-    console.log("not int");
+    //console.log("not int");
+    errorcase = 1;
     return false;
   }
 
-  // FIXME: due to rounding issue, value slightly lower than 1 might pass this condition
+  //due to rounding issue, value slightly lower than 1 might pass this condition
   if (side1 < LOWER_LIMIT || side2 < LOWER_LIMIT || side3 < LOWER_LIMIT) {
-    console.log("too low");
+    //console.log("too low");
+    errorcase = 2;
     return false;
   }
-  // FIXME: due to rounding issue, value slightly more than 1000000 might pass this condition
+  //due to rounding issue, value slightly more than 1000000 might pass this condition
   if (side1 > UPPER_LIMIT || side2 > UPPER_LIMIT || side3 > UPPER_LIMIT) {
-    console.log("too high");
+    //console.log("too high");
+    errorcase = 2;
     return false;
   }
   if (
@@ -43,7 +48,8 @@ const validateInput = (side1, side2, side3) => {
     side1 + side3 <= side2 ||
     side2 + side3 <= side1
   ) {
-    console.log("not valid triangle");
+    //console.log("not valid triangle");
+    errorcase = 3;
     return false;
   }
   return true;
@@ -95,9 +101,19 @@ const calculateInput = (side1, side2, side3) => {
     } else {
       output += ", Acute Triangle";
     }
-  } else {
-    output += "Please check your input.";
+  } 
+  else {
+    if (errorcase == 1) {
+      output += "Error, please  check your input";
+    }
+    else if(errorcase == 2){
+      output += "Error, please enter new value(invalid input)";
+    }
+    else if(errorcase == 3){
+      output +=  "Error, please enter new value(invalid triangle)";
+    }
+    
   }
-  document.getElementById("output").value = output;
+  outputField.value= output;
   //return output;
 };
