@@ -5,17 +5,17 @@ const submitButton = document.getElementById("submit-button");
 const outputField = document.getElementById("output");
 let errorcase = 0;
 
+const LOWER_LIMIT = 1;
+const UPPER_LIMIT = 1000000000000; //XXX: change upper limit according to requirement
+
 submitButton.addEventListener("click", () =>
   calculateInput(inputSide1.value, inputSide2.value, inputSide3.value)
 );
 
 // Validation Module
-// TODO: Apply error to corresponding input field (replace all console.log())
 const validateInput = (side1, side2, side3) => {
-  const LOWER_LIMIT = 1;
-  const UPPER_LIMIT = 1000000;
   console.log(side1, side2, side3);
-  // NOTE: since input are of type number, string inputs will be result in <empty string> on variables
+  // XXX: since input are of type number, string inputs will be result in <empty string> on variables
   if (isNaN(side1) || isNaN(side2) || isNaN(side3)) {
     //console.log("no data");
     if (isNaN(side1)) {
@@ -41,8 +41,6 @@ const validateInput = (side1, side2, side3) => {
     !Number.isInteger(side2) ||
     !Number.isInteger(side3)
   ) {
-    //console.log("not int");
-
     if (!Number.isInteger(side1)) {
       inputSide1.style = "background-color : red";
     } else {
@@ -64,7 +62,6 @@ const validateInput = (side1, side2, side3) => {
 
   //due to rounding issue, value slightly lower than 1 might pass this condition
   if (side1 < LOWER_LIMIT || side2 < LOWER_LIMIT || side3 < LOWER_LIMIT) {
-    //console.log("too low");
     if (side1 < LOWER_LIMIT) {
       inputSide1.style = "background-color : red";
     } else {
@@ -85,7 +82,6 @@ const validateInput = (side1, side2, side3) => {
   }
   //due to rounding issue, value slightly more than 1000000 might pass this condition
   if (side1 > UPPER_LIMIT || side2 > UPPER_LIMIT || side3 > UPPER_LIMIT) {
-    //console.log("too high");
     if (side1 > UPPER_LIMIT) {
       inputSide1.style = "background-color : red";
     } else {
@@ -109,7 +105,6 @@ const validateInput = (side1, side2, side3) => {
     side1 + side3 <= side2 ||
     side2 + side3 <= side1
   ) {
-    //console.log("not valid triangle");
     errorcase = 3;
     return false;
   }
@@ -131,7 +126,6 @@ const calculateInput = (side1, side2, side3) => {
     inputSide1.style = "background-color : #cdda07";
     inputSide2.style = "background-color : #cdda07";
     inputSide3.style = "background-color : #cdda07";
-    const longestSide = Math.max(sideValues);
     sideValues.sort();
     let isEquilateral = sideValues[0] == sideValues[2] ? true : false; //check
     let isIsosceles =
@@ -143,11 +137,6 @@ const calculateInput = (side1, side2, side3) => {
       sideValues[2] * sideValues[2]
         ? true
         : false; //check
-    let isObique =
-      sideValues[0] * sideValues[0] + sideValues[1] * sideValues[1] <
-      sideValues[2] * sideValues[2]
-        ? true
-        : false; //check
 
     if (isEquilateral) {
       output += "Equilateral Triangle";
@@ -156,22 +145,20 @@ const calculateInput = (side1, side2, side3) => {
     } else {
       output += "Scalene Triangle";
     }
+
     if (isRight) {
       output += ", Right Triangle";
-    } else if (isObique) {
-      output += ", Obique Triangle";
-    } else {
-      output += ", Acute Triangle";
     }
+
+    //XXX: Remove other angle checking (not in requirement)
   } else {
     if (errorcase == 1) {
       output += "Error, you have to put a value for every side.";
     } else if (errorcase == 2) {
-      output += "Error, value must be in range 1-1,000,000.";
+      output += `Error, value must be in range ${LOWER_LIMIT}-${UPPER_LIMIT}.`;
     } else if (errorcase == 3) {
       output += "Error, can't create triangle from the input.";
     }
   }
   outputField.value = output;
-  //return output;
 };
